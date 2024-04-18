@@ -27,17 +27,13 @@ public class SchoolService {
         return school.get();
     }
 
-
-    public Student getStudentByIdOfSpecificSchool(Long schoolId, Long studentId) {
-        School school = getSchoolByIdOrThrow(schoolId);
-        List<Student> students = school.getStudents();
-        Optional<Student> student = students.stream()
+    public Student getStudentByStudentIdAndSchoolId(Long schoolId, Long studentId) {
+        return getSchoolByIdOrThrow(schoolId)
+                .getStudents()
+                .stream()
                 .filter(s -> s.getStudentId().equals(studentId))
-                .findFirst();
-        if (student.isEmpty()) {
-            throw new ObjectNotFoundException(studentId, "Student not found");
-        }
-        return student.get();
+                .findFirst()
+                .orElseThrow(() -> new ObjectNotFoundException(studentId, "Student not found"));
     }
 
 }
