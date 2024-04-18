@@ -1,6 +1,6 @@
 package org.example.controllertask.controllers;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.example.controllertask.entities.School;
 import org.example.controllertask.entities.Student;
 import org.example.controllertask.services.SchoolService;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RestController
 @RequestMapping(value = "/schools")
 public class SchoolController {
@@ -34,8 +34,8 @@ public class SchoolController {
     }
 
     @GetMapping(value = "/{schoolId}/students/{studentId}")
-    public Student getStudentByStudentId(@PathVariable Long schoolId, Long studentId){
-        return this.schoolService.getStudentByIdOfSpecificSchool(schoolId, studentId);
+    public Student getStudentByStudentId(@PathVariable Long schoolId, @PathVariable Long studentId){
+        return this.schoolService.getStudentByStudentIdAndSchoolId(schoolId, studentId);
 
     }
 
